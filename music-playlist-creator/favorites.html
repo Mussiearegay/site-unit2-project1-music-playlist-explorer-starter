@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Favorite Songs - Music Playlist Explorer</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <h1>Music Explorer</h1>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="featured.html" class="nav-link">Featured</a>
+            <a href="favorites.html" class="nav-link active">Favorites</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-container">
+        <header class="main-header">
+            <h2 class="greeting">Your Favorite Songs</h2>
+            <div class="header-controls">
+                <div class="search-container">
+                    <input type="search" class="search-input" id="searchInput" placeholder="Search songs...">
+                    <div class="search-results" id="searchResults" hidden>
+                        <!-- Search results will appear here -->
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Favorites Section -->
+            <section class="favorites-section">
+                <p class="favorites-count" id="favoritesCount">0 favorite songs</p>
+                <div class="favorites-list">
+                    <ul class="song-list favorites-song-list" id="favoritesSongList">
+                        <!-- Favorite songs will be dynamically generated here -->
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <footer class="main-footer">
+            <p>&copy; 2024 Music Playlist Explorer</p>
+        </footer>
+    </div>
+
+    <script src="data/data.js"></script>
+    <script src="favorites.js"></script>
+</body>
+</html>

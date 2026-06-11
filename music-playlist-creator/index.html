@@ -10,17 +10,186 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <!-- Your header content here -->
-    </header>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <h1>Music Explorer</h1>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-link active">Home</a>
+            <a href="featured.html" class="nav-link">Featured</a>
+            <a href="favorites.html" class="nav-link">Favorites</a>
+        </nav>
+    </aside>
 
-    <main> 
-        <!-- Your main content here -->
-    </main>
+    <!-- Main Content Area -->
+    <div class="main-container">
+        <header class="main-header">
+            <div class="header-controls">
+                <button class="create-playlist-button" id="createPlaylistBtn">
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                    </svg>
+                    Create Playlist
+                </button>
+                <div class="sort-container">
+                    <label for="sortSelect" style="color: #b3b3b3; font-size: 14px; margin-right: 8px;">Sort by:</label>
+                    <select id="sortSelect" class="sort-select">
+                        <option value="default">Default</option>
+                        <option value="name">Name (A-Z)</option>
+                        <option value="likes">Most Liked</option>
+                        <option value="date">Recently Added</option>
+                    </select>
+                </div>
+                <div class="search-container">
+                    <input type="search" class="search-input" id="searchInput" placeholder="Search songs...">
+                    <div class="search-results" id="searchResults" hidden>
+                        <!-- Search results will appear here -->
+                    </div>
+                </div>
+            </div>
+        </header>
 
-    <footer>
-        <!-- Your footer content here -->
-    </footer>
+        <main class="main-content">
+            <section class="playlist-section">
+                <h3 class="section-title">Shared Playlists</h3>
+                <div class="playlist-cards">
+                    <!-- Playlist cards will be dynamically generated here -->
+                </div>
+            </section>
+        </main>
+
+        <footer class="main-footer">
+            <p>&copy; 2024 Music Playlist Explorer</p>
+        </footer>
+    </div>
+
+    <!-- Edit/Create Playlist Form Modal -->
+    <div class="form-modal-overlay" hidden>
+        <div class="form-modal-content">
+            <button class="modal-close form-modal-close" aria-label="Close form">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+            </button>
+
+            <h2 class="form-modal-title" id="formModalTitle">Create Playlist</h2>
+
+            <form id="playlistForm" class="playlist-form">
+                <div class="form-group">
+                    <label for="playlistTitleInput">Playlist Title *</label>
+                    <input type="text" id="playlistTitleInput" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="playlistCreatorInput">Creator Name *</label>
+                    <input type="text" id="playlistCreatorInput" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="playlistDescriptionInput">Description</label>
+                    <textarea id="playlistDescriptionInput" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="playlistCoverInput">Cover Image URL</label>
+                    <input type="url" id="playlistCoverInput" placeholder="https://example.com/image.jpg">
+                    <small style="color: #b3b3b3; font-size: 12px; margin-top: 4px;">Enter an image URL or leave blank for default cover</small>
+                </div>
+
+                <div class="form-section">
+                    <h3>Songs</h3>
+                    <div id="songsList" class="songs-form-list">
+                        <!-- Song form fields will be added here -->
+                    </div>
+                    <button type="button" class="add-song-button" id="addSongBtn">
+                        <svg viewBox="0 0 24 24" width="16" height="16">
+                            <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                        </svg>
+                        Add Song
+                    </button>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="cancel-button" id="cancelFormBtn">Cancel</button>
+                    <button type="submit" class="save-button" id="savePlaylistBtn">Save Playlist</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" hidden>
+        <div class="modal-content">
+            <button class="modal-close detail-modal-close" aria-label="Close modal">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+            </button>
+
+            <div class="modal-header">
+                <img src="https://via.placeholder.com/300" alt="Playlist cover" class="modal-cover">
+                <div class="modal-info">
+                    <h2 class="modal-title">Chill Vibes</h2>
+                    <p class="modal-creator">by Sarah Chen</p>
+                    <p class="modal-description">Perfect blend of lo-fi beats and ambient sounds for studying, working, or relaxing.</p>
+                    <button class="ai-description-button">
+                        <svg viewBox="0 0 24 24" width="16" height="16">
+                            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                        </svg>
+                        Get AI Description
+                    </button>
+                    <p class="ai-description-result" style="display: none;"></p>
+                    <div class="modal-actions">
+                        <button class="shuffle-button">
+                            <svg viewBox="0 0 24 24" width="20" height="20">
+                                <path fill="currentColor" d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/>
+                            </svg>
+                            Shuffle
+                        </button>
+                        <button class="modal-like-button" aria-label="Like playlist">
+                            <svg class="like-icon" viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-tracklist">
+                <h3 class="tracklist-title">Songs</h3>
+                <ul class="song-list">
+                    <li class="song-item">
+                        <div class="song-number">1</div>
+                        <div class="song-details">
+                            <div class="song-title">Moonlight Sonata</div>
+                            <div class="song-artist">Ludwig van Beethoven</div>
+                        </div>
+                        <div class="song-album">Classical Essentials</div>
+                        <div class="song-duration">5:23</div>
+                    </li>
+                    <li class="song-item">
+                        <div class="song-number">2</div>
+                        <div class="song-details">
+                            <div class="song-title">Clair de Lune</div>
+                            <div class="song-artist">Claude Debussy</div>
+                        </div>
+                        <div class="song-album">Piano Dreams</div>
+                        <div class="song-duration">4:48</div>
+                    </li>
+                    <li class="song-item">
+                        <div class="song-number">3</div>
+                        <div class="song-details">
+                            <div class="song-title">Gymnopédie No. 1</div>
+                            <div class="song-artist">Erik Satie</div>
+                        </div>
+                        <div class="song-album">Peaceful Piano</div>
+                        <div class="song-duration">3:15</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <script src="data/data.js"></script>
     <script src="script.js"></script>
 </body>
